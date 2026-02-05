@@ -127,6 +127,69 @@ export {
 } from './ToolOutput';
 
 // ============================================================================
+// Dialog Components
+// ============================================================================
+
+export {
+  PermissionDialog,
+  SimplePermissionDialog,
+  BashPermissionDialog,
+  FilePermissionDialog,
+  type PermissionDialogProps,
+  type PermissionType,
+  type PermissionDecision,
+  type PermissionUpdate,
+} from './PermissionDialog';
+
+export {
+  ConfirmationPrompt,
+  YesNoPrompt,
+  DeleteConfirmation,
+  SaveChangesPrompt,
+  RetryPrompt,
+  MultiChoicePrompt,
+  type ConfirmationPromptProps,
+  type ConfirmationOption,
+} from './ConfirmationPrompt';
+
+// ============================================================================
+// Error Components
+// ============================================================================
+
+export {
+  ErrorDisplay,
+  InlineError,
+  ErrorBoundaryFallback,
+  NetworkError,
+  ValidationError,
+  PermissionError,
+  TimeoutError,
+  ErrorList,
+  type ErrorDisplayProps,
+  type ErrorSeverity,
+  type ErrorCategory,
+  type ErrorSuggestion,
+} from './ErrorDisplay';
+
+// ============================================================================
+// Code Display Components
+// ============================================================================
+
+export {
+  CodeBlock,
+  InlineCode,
+  DiffBlock,
+  JsonBlock,
+  ShellBlock,
+  CodeSnippet,
+  type CodeBlockProps,
+  type SupportedLanguage,
+  type TokenType,
+  type CodeToken,
+  type CodeLine,
+} from './CodeBlock';
+
+// ============================================================================
 // Theme System
 // ============================================================================
 
@@ -167,6 +230,10 @@ import { StatusLine, CompactStatusLine, ModeIndicator, ShortcutsHelp } from './S
 import { MessageDisplay, MessageList, SystemMessage } from './MessageDisplay';
 import { ToolOutput, BashOutput, FileOutput, ToolOutputList } from './ToolOutput';
 import { ThemeProvider, useTheme, ThemeSelector } from './Theme';
+import { PermissionDialog, SimplePermissionDialog, BashPermissionDialog, FilePermissionDialog } from './PermissionDialog';
+import { ConfirmationPrompt, YesNoPrompt, DeleteConfirmation, SaveChangesPrompt, RetryPrompt, MultiChoicePrompt } from './ConfirmationPrompt';
+import { ErrorDisplay, InlineError, ErrorBoundaryFallback, NetworkError, ValidationError, PermissionError as PermissionErrorComponent, TimeoutError, ErrorList } from './ErrorDisplay';
+import { CodeBlock, InlineCode, DiffBlock, JsonBlock, ShellBlock, CodeSnippet } from './CodeBlock';
 
 /**
  * UI namespace - chua tat ca components
@@ -216,6 +283,36 @@ const UI = {
   BashOutput,
   FileOutput,
   ToolOutputList,
+
+  // Dialog
+  PermissionDialog,
+  SimplePermissionDialog,
+  BashPermissionDialog,
+  FilePermissionDialog,
+  ConfirmationPrompt,
+  YesNoPrompt,
+  DeleteConfirmation,
+  SaveChangesPrompt,
+  RetryPrompt,
+  MultiChoicePrompt,
+
+  // Error
+  ErrorDisplay,
+  InlineError,
+  ErrorBoundaryFallback,
+  NetworkError,
+  ValidationError,
+  PermissionErrorComponent,
+  TimeoutError,
+  ErrorList,
+
+  // Code
+  CodeBlock,
+  InlineCode,
+  DiffBlock,
+  JsonBlock,
+  ShellBlock,
+  CodeSnippet,
 
   // Theme
   ThemeProvider,

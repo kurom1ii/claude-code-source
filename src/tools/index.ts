@@ -8,7 +8,10 @@
  * - Shell: Bash
  * - Web: WebFetch, WebSearch
  * - Agent: Task
- * - Utility: LSP
+ * - Utility: LSP, NotebookEdit
+ * - User Interaction: AskUserQuestion
+ * - Planning: EnterPlanMode, ExitPlanMode
+ * - Task Management: TodoWrite
  */
 
 // ============================================================================
@@ -166,6 +169,78 @@ import LSPToolModule, {
 } from './LSPTool';
 
 // ============================================================================
+// New Tools - User Interaction, Planning, Todo Management
+// ============================================================================
+
+// User Interaction Tools
+import AskUserQuestionToolModule, {
+  askUserQuestionToolDefinition,
+  createAskUserQuestionToolHandler,
+  validateAskUserQuestionInput,
+  createQuestion,
+  createOption,
+  isCustomAnswer,
+  extractCustomValue,
+  type AskUserQuestionInput,
+  type AskUserQuestionOutput,
+  type Question,
+  type QuestionOption,
+} from './AskUserQuestionTool';
+
+// Notebook Tools
+import NotebookEditToolModule, {
+  notebookEditToolDefinition,
+  createNotebookEditToolHandler,
+  validateNotebookEditInput,
+  type NotebookEditInput,
+  type NotebookEditOutput,
+  type CellType,
+  type EditMode,
+} from './NotebookEditTool';
+
+// Todo Management Tools
+import TodoWriteToolModule, {
+  todoWriteToolDefinition,
+  createTodoWriteToolHandler,
+  validateTodoWriteInput,
+  formatTodoList,
+  getStatusIcon,
+  allCompleted,
+  countByStatus,
+  getTodos,
+  clearTodos,
+  type TodoWriteInput,
+  type TodoWriteOutput,
+  type TodoItem,
+  type TodoStatus,
+} from './TodoWriteTool';
+
+// Plan Mode Tools
+import EnterPlanModeToolModule, {
+  enterPlanModeToolDefinition,
+  createEnterPlanModeToolHandler,
+  validateEnterPlanModeInput,
+  isInPlanMode,
+  setPlanMode,
+  getPlanModeInstructions,
+  type EnterPlanModeInput,
+  type EnterPlanModeOutput,
+} from './EnterPlanModeTool';
+
+import ExitPlanModeToolModule, {
+  exitPlanModeToolDefinition,
+  createExitPlanModeToolHandler,
+  validateExitPlanModeInput,
+  getPlanFilePath,
+  readPlanFile,
+  planFileExists,
+  createExitPlanModeResponse,
+  type ExitPlanModeInput,
+  type ExitPlanModeOutput,
+  type AllowedPrompt,
+} from './ExitPlanModeTool';
+
+// ============================================================================
 // Re-exports - Tool Definitions
 // ============================================================================
 
@@ -296,6 +371,65 @@ export {
   type HoverInfo,
   type CompletionItem,
   type DocumentSymbol,
+
+  // AskUserQuestion
+  askUserQuestionToolDefinition,
+  createAskUserQuestionToolHandler,
+  validateAskUserQuestionInput,
+  createQuestion,
+  createOption,
+  isCustomAnswer,
+  extractCustomValue,
+  type AskUserQuestionInput,
+  type AskUserQuestionOutput,
+  type Question,
+  type QuestionOption,
+
+  // NotebookEdit
+  notebookEditToolDefinition,
+  createNotebookEditToolHandler,
+  validateNotebookEditInput,
+  type NotebookEditInput,
+  type NotebookEditOutput,
+  type CellType,
+  type EditMode,
+
+  // TodoWrite
+  todoWriteToolDefinition,
+  createTodoWriteToolHandler,
+  validateTodoWriteInput,
+  formatTodoList,
+  getStatusIcon,
+  allCompleted,
+  countByStatus,
+  getTodos,
+  clearTodos,
+  type TodoWriteInput,
+  type TodoWriteOutput,
+  type TodoItem,
+  type TodoStatus,
+
+  // EnterPlanMode
+  enterPlanModeToolDefinition,
+  createEnterPlanModeToolHandler,
+  validateEnterPlanModeInput,
+  isInPlanMode,
+  setPlanMode,
+  getPlanModeInstructions,
+  type EnterPlanModeInput,
+  type EnterPlanModeOutput,
+
+  // ExitPlanMode
+  exitPlanModeToolDefinition,
+  createExitPlanModeToolHandler,
+  validateExitPlanModeInput,
+  getPlanFilePath,
+  readPlanFile,
+  planFileExists,
+  createExitPlanModeResponse,
+  type ExitPlanModeInput,
+  type ExitPlanModeOutput,
+  type AllowedPrompt,
 };
 
 // ============================================================================
@@ -312,12 +446,15 @@ export const TaskTool = TaskToolModule;
 export const WebFetchTool = WebFetchToolModule;
 export const WebSearchTool = WebSearchToolModule;
 export const LSPTool = LSPToolModule;
+export const AskUserQuestionTool = AskUserQuestionToolModule;
+export const NotebookEditTool = NotebookEditToolModule;
+export const TodoWriteTool = TodoWriteToolModule;
+export const EnterPlanModeTool = EnterPlanModeToolModule;
+export const ExitPlanModeTool = ExitPlanModeToolModule;
 
 // ============================================================================
 // Built-in Tools Registry
 // ============================================================================
-
-import type { ToolDefinition, ToolCategory } from './types';
 
 /**
  * Danh sach tat ca tool definitions
@@ -342,6 +479,19 @@ export const BUILTIN_TOOLS: ToolDefinition[] = [
 
   // Utility
   lspToolDefinition,
+
+  // User Interaction
+  askUserQuestionToolDefinition,
+
+  // Notebook
+  notebookEditToolDefinition,
+
+  // Todo Management
+  todoWriteToolDefinition,
+
+  // Plan Mode
+  enterPlanModeToolDefinition,
+  exitPlanModeToolDefinition,
 ];
 
 /**
@@ -402,6 +552,11 @@ export const TOOL_HANDLER_FACTORIES = {
   WebFetch: createWebFetchToolHandler,
   WebSearch: createWebSearchToolHandler,
   LSP: createLSPToolHandler,
+  AskUserQuestion: createAskUserQuestionToolHandler,
+  NotebookEdit: createNotebookEditToolHandler,
+  TodoWrite: createTodoWriteToolHandler,
+  EnterPlanMode: createEnterPlanModeToolHandler,
+  ExitPlanMode: createExitPlanModeToolHandler,
 } as const;
 
 /**
@@ -418,11 +573,12 @@ export const TOOL_VALIDATORS = {
   WebFetch: validateWebFetchInput,
   WebSearch: validateWebSearchInput,
   LSP: validateLSPInput,
+  AskUserQuestion: validateAskUserQuestionInput,
+  NotebookEdit: validateNotebookEditInput,
+  TodoWrite: validateTodoWriteInput,
+  EnterPlanMode: validateEnterPlanModeInput,
+  ExitPlanMode: validateExitPlanModeInput,
 } as const;
-
-// ============================================================================
-// Default Export
-// ============================================================================
 
 // ============================================================================
 // Execution Functions
@@ -544,6 +700,11 @@ export default {
   WebFetchTool,
   WebSearchTool,
   LSPTool,
+  AskUserQuestionTool,
+  NotebookEditTool,
+  TodoWriteTool,
+  EnterPlanModeTool,
+  ExitPlanModeTool,
 
   // Registry
   BUILTIN_TOOLS,

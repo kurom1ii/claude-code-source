@@ -63,7 +63,11 @@ export type ToolCategory =
   | 'web'           // Fetch URL, search web
   | 'agent'         // Quan ly agents/tasks
   | 'notebook'      // Jupyter notebook
-  | 'utility';      // Cac tien ich khac
+  | 'utility'       // Cac tien ich khac
+  | 'user-interaction' // Tuong tac voi user
+  | 'planning'      // Plan mode
+  | 'task-management' // Quan ly tasks
+  | 'swarm';        // Team/swarm operations
 
 // ============================================================================
 // Tool Execution - Kieu du lieu khi chay tool
