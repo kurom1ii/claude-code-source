@@ -117,6 +117,12 @@ export interface ExecutionContext {
   userId?: string;
   /** Session ID hien tai */
   sessionId?: string;
+  /** Agent ID (for swarm mode) */
+  agentId?: string;
+  /** Agent name (for swarm mode) */
+  agentName?: string;
+  /** Team name (for swarm mode) */
+  teamName?: string;
 }
 
 // ============================================================================
