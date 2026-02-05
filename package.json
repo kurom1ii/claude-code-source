@@ -1,0 +1,47 @@
+{
+  "name": "claude-code-reconstructed",
+  "version": "2.1.30-reconstructed",
+  "description": "Claude Code CLI - Phiên bản được tái cấu trúc từ source deobfuscated",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "claude": "./dist/cli.js"
+  },
+  "scripts": {
+    "dev": "bun run src/cli/index.ts",
+    "build": "bun build src/cli/index.ts --outfile dist/cli.js --target bun",
+    "build:compile": "bun build src/cli/index.ts --compile --outfile dist/claude",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext .ts,.tsx",
+    "format": "prettier --write src/**/*.{ts,tsx}",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "ink": "^5.0.1",
+    "ink-select-input": "^6.0.0",
+    "ink-spinner": "^5.0.0",
+    "ink-text-input": "^6.0.0",
+    "react": "^18.3.1",
+    "zod": "^3.23.8",
+    "commander": "^12.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/react": "^18.3.3",
+    "@typescript-eslint/eslint-plugin": "^7.13.0",
+    "@typescript-eslint/parser": "^7.13.0",
+    "bun-types": "^1.1.0",
+    "eslint": "^9.5.0",
+    "prettier": "^3.3.0",
+    "react-devtools-core": "^7.0.1",
+    "typescript": "^5.5.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "bun": ">=1.0.0"
+  },
+  "author": "Reconstructed from Anthropic's Claude Code",
+  "license": "UNLICENSED",
+  "keywords": ["claude", "cli", "ai", "anthropic"]
+}
